@@ -1,13 +1,39 @@
 <template>
-  <h1>Register screen under construction</h1>
+  <CreateAccountForm @submit="onSubmit" :error="error" :success="success" />
+  <router-link :to="{ name: 'Login' }"
+    >Já tem uma conta? Login</router-link
+  >
 </template>
 
 <script>
-export default {
+import CreateAccountForm from "../components/CreateAccountForm.vue";
+import { createAccount } from "../infrastructure/user_service";
 
-}
+export default {
+  data() {
+    return {
+      error: null,
+      success: false,
+    };
+  },
+  components: {
+    CreateAccountForm,
+  },
+  methods: {
+    onSubmit(data) {
+      createAccount(
+        data,
+        (errorMessage) => {
+          this.error = errorMessage;
+        },
+        () => {
+          this.success = true;
+        }
+      );
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>

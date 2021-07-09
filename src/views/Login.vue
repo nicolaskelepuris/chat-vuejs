@@ -1,6 +1,6 @@
 <template>
   <LoginForm @submit="onSubmit" :loginError="loginError" />
-  <router-link :to="{ name: 'Register' }">Create an account</router-link>
+  <router-link :to="{ name: 'Register' }">Criar uma conta</router-link>
 </template>
 
 <script>

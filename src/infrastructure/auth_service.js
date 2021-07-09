@@ -1,5 +1,5 @@
 import Router from '../router';
-import hostname from '../infrastructure/api_config';
+import { hostname } from '../infrastructure/api_config';
 const axios = require('axios');
 
 export function login(loginData, onError) {
@@ -13,9 +13,9 @@ export function login(loginData, onError) {
             } else {
                 onError(response?.data?.error?.message);
             }
-        });
+        }).catch((error) => onError(error.response.data.error.message));
     } catch (error) {
-        console.log('error during login');
+        console.log(error);
     }
 }
 
