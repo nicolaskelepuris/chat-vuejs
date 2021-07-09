@@ -1,12 +1,13 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <form>
     <label>Email</label>
     <input type="email" required v-model="email" />
 
     <label>Password</label>
     <input type="password" required v-model="password" />
 
-    <button>Login</button>
+    <button @click.prevent="onSubmit">Login</button>
+    <div v-if="loginError" class="error">{{ loginError }}</div>
   </form>
 </template>
 
@@ -14,17 +15,23 @@
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: "user1@email.com",
+      password: "senhatop",
     };
   },
-  props: ['onSubmit'],
+  props: ["loginError"],
+  methods: {
+    onSubmit() {
+      this.$emit("submit", { email: this.email, password: this.password });
+    },
+  },
 };
 </script>
 
 <style>
 form {
   max-width: 420px;
+  height: 280px;
   margin: 30px auto;
   border-radius: 10px;
   text-align: center;
@@ -50,5 +57,9 @@ button {
   margin-top: 40px;
   color: white;
   border-radius: 3px;
+}
+.error {
+  margin-top: 20px;
+  color: red;
 }
 </style>
