@@ -18,13 +18,7 @@ export default {
   },
   methods: {
     onSubmit(loginData) {
-      login(loginData, (response) => {
-        if (response?.data?.data != null) {
-          this.$router.push({ name: "Home" });
-        } else {
-          this.loginError = response?.data?.error?.message;
-        }
-      });
+      login(loginData, (errorMessage) => { this.loginError = errorMessage });
     },
   },
 };

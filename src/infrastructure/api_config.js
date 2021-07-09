@@ -1,0 +1,1 @@
+export const hostname = 'https://chat-signalr-teste.azurewebsites.net/api/';

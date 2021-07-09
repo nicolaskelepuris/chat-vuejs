@@ -1,13 +1,26 @@
+import Router from '../router';
+import hostname from '../infrastructure/api_config';
 const axios = require('axios');
 
-const hostname = 'https://chat-signalr-teste.azurewebsites.net/api/';
-const path = 'auth/login';
-
-export function login(loginData, callback) {
+export function login(loginData, onError) {
     try {
-        console.log('FEZ A REQUEST');
-        axios.post(hostname + path, loginData).then(response => callback(response));
+        const path = 'auth/login';
+        axios.post(hostname + path, loginData).then(response => {
+            if (response?.data?.data != null) {
+                localStorage.setItem('user', JSON.stringify(response.data.data.user));
+                localStorage.setItem('token', JSON.stringify(response.data.data.token));
+                Router.push({ name: "Home" });
+            } else {
+                onError(response?.data?.error?.message);
+            }
+        });
     } catch (error) {
         console.log('error during login');
     }
+}
+
+export function logout() {
+    localStorage.removeItem('user');
+    localStorage.setItem('token');
+    Router.push({ name: "Login" });
 }
