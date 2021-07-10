@@ -1,6 +1,5 @@
 <template>
-  <LoginForm @submit="onSubmit" :loginError="loginError" />
-  <router-link :to="{ name: 'Register' }">Criar uma conta</router-link>
+  <LoginForm @submit="onSubmit" @changedInput="onChangeInput" :loginError="loginError"/>
 </template>
 
 <script>
@@ -20,6 +19,9 @@ export default {
     onSubmit(loginData) {
       login(loginData, (errorMessage) => { this.loginError = errorMessage });
     },
+    onChangeInput(){
+      this.loginError = null;
+    }
   },
 };
 </script>

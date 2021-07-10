@@ -1,8 +1,13 @@
 <template>
-  <CreateAccountForm @submit="onSubmit" :error="error" :success="success" />
-  <router-link :to="{ name: 'Login' }"
-    >Já tem uma conta? Login</router-link
-  >
+  <CreateAccountForm
+    @submit="onSubmit"
+    @changedInput="onChangeInput"
+    :error="error"
+    :success="success"
+  />
+  <div class="mt-2">
+    <router-link :to="{ name: 'Login' }">Já tem uma conta? Login</router-link>
+  </div>
 </template>
 
 <script>
@@ -30,6 +35,9 @@ export default {
           this.success = true;
         }
       );
+    },
+    onChangeInput() {
+      this.error = null;
     },
   },
 };
