@@ -1,5 +1,6 @@
 const signalR = require("@microsoft/signalr");
 import { chatWebSocketHostName } from '../infrastructure/api_config';
+import { getTokenFromStorage } from '../infrastructure/auth_service';
 
 let connection;
 
@@ -7,7 +8,7 @@ export function connect(onReceiveMessage, onOpenRoom) {
     try {
         connection = new signalR.HubConnectionBuilder()
             .configureLogging(signalR.LogLevel.Debug)
-            .withUrl(chatWebSocketHostName + '?access_token=' + localStorage.getItem('token').replaceAll('"', ''))
+            .withUrl(chatWebSocketHostName + '?access_token=' + getTokenFromStorage())
             .withAutomaticReconnect()
             .build();
     } catch (error) {

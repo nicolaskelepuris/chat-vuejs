@@ -92,6 +92,7 @@ import {
   sendMessageToRoom,
   leavePrivateRoom
 } from "../infrastructure/chat_client";
+import { getUserFromStorage } from '../infrastructure/auth_service';
 export default {
   data() {
     return {
@@ -160,7 +161,7 @@ export default {
       if (room.type == 1) {
         return "Geral";
       } else {
-        const userId = JSON.parse(localStorage.getItem("user")).id;
+        const userId = getUserFromStorage().id;
 
         return room.users.find((u) => u.id !== userId).nickname;
       }
