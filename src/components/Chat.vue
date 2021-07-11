@@ -42,45 +42,8 @@
         </ul>
       </div>
       <div class="col-9 h-100">
-        <ul class="list-group message-list border-bottom mb-4">
-          <div class="message-item">
-            <li
-              class="list-group-item text-truncate p-3 h-100 m-1"
-              v-for="message in currentRoom?.messages"
-              :key="message.id"
-              :class="{ 'list-group-item-secondary': message.isSender }"
-            >
-              <div class="row">
-                <div
-                  @click="joinRoom(message.sender.id)"
-                  class="col-3 text-align-start"
-                >
-                  <div class="text-truncate hover">
-                    {{ message.sender.nickname }}
-                  </div>
-                  <div class="text-truncate">
-                    {{ getMessageTime(message) }}
-                  </div>
-                </div>
-                <div class="col-9 text-align-start text-truncate">
-                  {{ message.message }}
-                </div>
-              </div>
-            </li>
-          </div>
-        </ul>
-        <div class="container">
-          <div class="row gx-1">
-            <div class="col-10">
-              <input type="text" v-model="message" class="form-control" />
-            </div>
-            <div class="col-2">
-              <button @click="sendMessage" class="btn btn-primary">
-                Enviar
-              </button>
-            </div>
-          </div>
-        </div>
+        <MessageList :currentRoom="currentRoom" @joinRoom="joinRoom"/>
+        <SendMessageForm :roomId="currentRoom?.id" />
       </div>
     </div>
   </div>
@@ -95,11 +58,16 @@ import {
 import {
   connect,
   joinPrivateRoom,
-  sendMessageToRoom,
   leavePrivateRoom,
 } from "../infrastructure/chat_client";
 import { getUserFromStorage } from "../infrastructure/auth_service";
+import SendMessageForm from "./SendMessageForm.vue";
+import MessageList from "./MessageList.vue";
 export default {
+  components: {
+    SendMessageForm,
+    MessageList,
+  },
   data() {
     return {
       rooms: [],
@@ -182,16 +150,6 @@ export default {
 
       return "";
     },
-    getMessageTime(message) {
-      let dateStr;
-      if (!message.sentAt.includes("Z")) {
-        dateStr = message.sentAt + "Z";
-      } else {
-        dateStr = message.sentAt;
-      }
-      const date = new Date(dateStr);
-      return date.toLocaleString("pt-BR");
-    },
     joinRoom(targetUserId) {
       let room = this.rooms.find((r) =>
         r.users.find((u) => u.id == targetUserId)
@@ -204,12 +162,6 @@ export default {
     },
     setCurrentRoom(room) {
       this.currentRoom = room;
-    },
-    sendMessage() {
-      if (this.message && this.message.length > 0) {
-        sendMessageToRoom(this.message, this.currentRoom.id);
-        this.message = "";
-      }
     },
     leaveRoom(roomId) {
       this.setCurrentRoom(this.rooms.find((r) => r.type == 1));
