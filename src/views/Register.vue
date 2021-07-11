@@ -38,6 +38,7 @@ export default {
     },
     onChangeInput() {
       this.error = null;
+      this.success = false;
     },
   },
 };
