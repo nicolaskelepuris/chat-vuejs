@@ -2,16 +2,18 @@ import { hostname } from '../infrastructure/api_config';
 import axios from '../infrastructure/axios';
 import { getTokenFromStorage } from '../infrastructure/auth_service';
 
-const config = {
-    headers: {
-       Authorization: "Bearer " + getTokenFromStorage()
+function getConfig(){
+    return {
+        headers: {
+           Authorization: "Bearer " + getTokenFromStorage()
+        }
     }
 }
 
 export function getChatRooms(onError, onSuccess) {
     try {
         const path = 'chat-rooms';
-        axios.get(hostname + path, config).then(response => {
+        axios.get(hostname + path, getConfig()).then(response => {
             if (response?.data?.data != null) {
                 onSuccess(response.data.data.items);
             } else {
@@ -29,7 +31,7 @@ export function getChatRooms(onError, onSuccess) {
 export function getChatRoomById(roomId, onError, onSuccess) {
     try {
         const path = 'chat-rooms/' + roomId;
-        axios.get(hostname + path, config).then(response => {
+        axios.get(hostname + path, getConfig()).then(response => {
             if (response?.data?.data != null) {
                 onSuccess(response.data.data);
             } else {
@@ -44,7 +46,7 @@ export function getChatRoomById(roomId, onError, onSuccess) {
 export function getChatRoomMessages(roomId, onError, onSuccess) {
     try {
         const path = 'chat-rooms/' + roomId + '/messages';
-        axios.get(hostname + path, config).then(response => {
+        axios.get(hostname + path, getConfig()).then(response => {
             if (response?.data?.data != null) {
                 onSuccess(response.data.data.items);
             } else {

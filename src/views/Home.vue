@@ -17,6 +17,7 @@
               @click="setCurrentRoom(room)"
               v-for="room in rooms"
               :key="room.id"
+              :class="{'bg-light': room.id === currentRoom.id}"
             >
               <div class="justify-content-between d-flex">
                 <div>
