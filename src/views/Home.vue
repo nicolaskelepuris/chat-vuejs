@@ -1,4 +1,7 @@
 <template>
+  <form class="d-flex m-4">
+    <input class="float-left" type="button" value="Logout" @click="onLogout" />
+  </form>
   <div class="container bg-light p-2 border border-dark h-80">
     <div class="row h-100">
       <div class="col-3 h-100">
@@ -17,7 +20,7 @@
               @click="setCurrentRoom(room)"
               v-for="room in rooms"
               :key="room.id"
-              :class="{'bg-light': room.id === currentRoom.id}"
+              :class="{ 'bg-light': room.id === currentRoom.id }"
             >
               <div class="justify-content-between d-flex">
                 <div>
@@ -26,7 +29,12 @@
                   </h5>
                 </div>
                 <div v-if="room.type != 1" class="float-right">
-                  <button @click.stop="leaveRoom(room.id)" type="button" class="close" aria-label="Close">
+                  <button
+                    @click.stop="leaveRoom(room.id)"
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                  >
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -91,9 +99,9 @@ import {
   connect,
   joinPrivateRoom,
   sendMessageToRoom,
-  leavePrivateRoom
+  leavePrivateRoom,
 } from "../infrastructure/chat_client";
-import { getUserFromStorage } from '../infrastructure/auth_service';
+import { getUserFromStorage, logout } from "../infrastructure/auth_service";
 export default {
   data() {
     return {
@@ -206,10 +214,13 @@ export default {
         this.message = "";
       }
     },
-    leaveRoom(roomId){
-      this.setCurrentRoom(this.rooms.find(r => r.type == 1));
+    leaveRoom(roomId) {
+      this.setCurrentRoom(this.rooms.find((r) => r.type == 1));
       leavePrivateRoom(roomId);
-      this.rooms = this.rooms.filter(r => r.id != roomId || r.type == 1);
+      this.rooms = this.rooms.filter((r) => r.id != roomId || r.type == 1);
+    },
+    onLogout(){
+      logout();
     }
   },
 };
