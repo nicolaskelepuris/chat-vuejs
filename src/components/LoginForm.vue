@@ -48,8 +48,8 @@
 export default {
   data() {
     return {
-      email: "user1@email.com",
-      password: "senhatop",
+      email: "",
+      password: "",
     };
   },
   props: ["loginError"],

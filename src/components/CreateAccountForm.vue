@@ -61,9 +61,9 @@
 export default {
   data() {
     return {
-      nickname: "user10",
-      email: "user10@email.com",
-      password: "senhatop",
+      nickname: "",
+      email: "",
+      password: "",
     };
   },
   props: ["error", "success"],
