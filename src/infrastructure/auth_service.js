@@ -1,6 +1,6 @@
 import Router from '../router';
 import { hostname } from '../infrastructure/api_config';
-const axios = require('axios');
+import axios from '../infrastructure/axios';
 
 export function login(loginData, onError) {
     try {
@@ -21,6 +21,6 @@ export function login(loginData, onError) {
 
 export function logout() {
     localStorage.removeItem('user');
-    localStorage.setItem('token');
+    localStorage.removeItem('token');
     Router.push({ name: "Login" });
 }

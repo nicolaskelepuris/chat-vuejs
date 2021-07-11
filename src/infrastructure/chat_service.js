@@ -1,5 +1,5 @@
 import { hostname } from '../infrastructure/api_config';
-const axios = require('axios');
+import axios from '../infrastructure/axios';
 
 export function getChatRooms(onError, onSuccess) {
     try {
@@ -15,7 +15,10 @@ export function getChatRooms(onError, onSuccess) {
             } else {
                 onError();
             }
-        }).catch(() => onError());
+        }).catch((error) => {
+            onError();
+            console.log(error);
+        });
     } catch (error) {
         console.log(error);
     }

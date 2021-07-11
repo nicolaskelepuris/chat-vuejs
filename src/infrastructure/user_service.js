@@ -1,5 +1,5 @@
 import { hostname } from '../infrastructure/api_config';
-const axios = require('axios');
+import axios from '../infrastructure/axios';
 
 export function createAccount(data, onError, onSuccess) {
     try {
