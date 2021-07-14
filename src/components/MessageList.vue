@@ -56,8 +56,6 @@ export default {
     scrollToElement() {
       const el = this.$el.getElementsByClassName("last-message")[0];
 
-      console.log(el);
-
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
       }
