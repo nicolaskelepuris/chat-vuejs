@@ -51,12 +51,6 @@ export default {
     connect(
       (chatMessage, roomId) => {
         this.rooms.find((r) => r.id == roomId).messages.push(chatMessage);
-
-        // const el = this.$el?.getElementsByClassName("last-message")[0];
-
-        // if (el) {
-        //   el.scrollIntoView();
-        // }
       },
       (roomId) => {
         this.openChatRoom(roomId);
