@@ -5,7 +5,11 @@
         class="list-group-item text-truncate p-3 h-100 m-1"
         v-for="message in currentRoom?.messages"
         :key="message.id"
-        :class="{ 'list-group-item-secondary': message.isSender }"
+        :class="{
+          'list-group-item-secondary': message.isSender,
+          'last-message':
+            message === currentRoom.messages[currentRoom.messages.length - 1],
+        }"
       >
         <div class="row">
           <div
@@ -30,6 +34,10 @@
 
 <script>
 export default {
+  updated() {
+    // whenever data changes and the component re-renders, this is called.
+    this.$nextTick(() => this.scrollToElement());
+  },
   props: ["currentRoom"],
   methods: {
     joinRoom(targetUserId) {
@@ -44,6 +52,15 @@ export default {
       }
       const date = new Date(dateStr);
       return date.toLocaleString("pt-BR");
+    },
+    scrollToElement() {
+      const el = this.$el.getElementsByClassName("last-message")[0];
+
+      console.log(el);
+
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     },
   },
 };

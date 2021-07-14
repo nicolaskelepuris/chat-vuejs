@@ -2,10 +2,15 @@
   <div class="container bg-light p-2 border border-dark h-80">
     <div class="row h-100">
       <div class="col-3 h-100">
-        <RoomList @setCurrentRoom="setCurrentRoom" @leaveRoom="leaveRoom" :rooms="rooms" :currentRoomId="currentRoom?.id" />
+        <RoomList
+          @setCurrentRoom="setCurrentRoom"
+          @leaveRoom="leaveRoom"
+          :rooms="rooms"
+          :currentRoomId="currentRoom?.id"
+        />
       </div>
       <div class="col-9 h-100">
-        <MessageList :currentRoom="currentRoom" @joinRoom="joinRoom"/>
+        <MessageList :currentRoom="currentRoom" @joinRoom="joinRoom" />
         <SendMessageForm :roomId="currentRoom?.id" />
       </div>
     </div>
@@ -46,6 +51,12 @@ export default {
     connect(
       (chatMessage, roomId) => {
         this.rooms.find((r) => r.id == roomId).messages.push(chatMessage);
+
+        // const el = this.$el?.getElementsByClassName("last-message")[0];
+
+        // if (el) {
+        //   el.scrollIntoView();
+        // }
       },
       (roomId) => {
         this.openChatRoom(roomId);
