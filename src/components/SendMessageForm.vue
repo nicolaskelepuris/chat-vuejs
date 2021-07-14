@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div @keyup.enter="sendMessage" class="container">
     <div class="row gx-1">
       <div class="col-10">
         <input type="text" v-model="message" class="form-control" />
