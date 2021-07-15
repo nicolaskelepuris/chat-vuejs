@@ -35,7 +35,6 @@
 <script>
 export default {
   updated() {
-    // whenever data changes and the component re-renders, this is called.
     this.$nextTick(() => this.scrollToElement());
   },
   props: ["currentRoom"],
