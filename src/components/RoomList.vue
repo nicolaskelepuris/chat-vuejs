@@ -26,10 +26,9 @@
             <button
               @click.stop="leaveRoom(room.id)"
               type="button"
-              class="close"
+              class="btn-close"
               aria-label="Close"
             >
-              <span aria-hidden="true">&times;</span>
             </button>
           </div>
         </div>
