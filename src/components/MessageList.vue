@@ -32,15 +32,19 @@
                 :class="{
                   hover: !message.isSender,
                 }"
+                data-bs-toggle="tooltip"
+                title="Abrir chat"
               >
                 {{ message.sender.nickname }}
               </div>
             </div>
-            <div class="d-flex flex-row pt-1" 
+            <div
+              class="d-flex flex-row pt-1"
               :class="{
                 'justify-content-between': !message.isSender,
                 'justify-content-end': message.isSender,
-              }">
+              }"
+            >
               <div class="text-align-start text-truncate pe-5">
                 {{ message.message }}
               </div>
