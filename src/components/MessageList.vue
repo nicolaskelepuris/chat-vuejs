@@ -27,14 +27,21 @@
               }"
             >
               <div
-                @click="joinRoom(message.sender.id)"
-                class="text-align-start h5"
-                :class="{
-                  hover: !message.isSender,
-                }"
+                v-if="currentRoom.type == 1"
                 data-bs-toggle="tooltip"
                 title="Abrir chat"
               >
+                <div
+                  @click="joinRoom(message.sender.id)"
+                  class="text-align-start h5"
+                  :class="{
+                    hover: !message.isSender,
+                  }"
+                >
+                  {{ message.sender.nickname }}
+                </div>
+              </div>
+              <div v-else class="text-align-start h5">
                 {{ message.sender.nickname }}
               </div>
             </div>
