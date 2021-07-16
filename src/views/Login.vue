@@ -1,5 +1,10 @@
 <template>
-  <LoginForm @submit="onSubmit" @changedInput="onChangeInput" :loginError="loginError"/>
+  <LoginForm
+    class="m-60"
+    @submit="onSubmit"
+    @changedInput="onChangeInput"
+    :loginError="loginError"
+  />
 </template>
 
 <script>
@@ -9,7 +14,7 @@ import { login } from "../infrastructure/auth_service";
 export default {
   data() {
     return {
-      loginError: null
+      loginError: null,
     };
   },
   components: {
@@ -17,11 +22,13 @@ export default {
   },
   methods: {
     onSubmit(loginData) {
-      login(loginData, (errorMessage) => { this.loginError = errorMessage });
+      login(loginData, (errorMessage) => {
+        this.loginError = errorMessage;
+      });
     },
-    onChangeInput(){
+    onChangeInput() {
       this.loginError = null;
-    }
+    },
   },
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <CreateAccountForm
+    class="m-60"
     @submit="onSubmit"
     @changedInput="onChangeInput"
     :error="error"
